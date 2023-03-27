@@ -1,0 +1,17 @@
+namespace UWP_CPP
+{
+    runtimeclass DeviceEntryControl : Windows.UI.Xaml.Controls.UserControl
+    {
+        DeviceEntryControl(Windows.Gaming.Input.IGameController device);
+
+        event Windows.UI.Xaml.RoutedEventHandler SelectButtonClicked;
+
+        String DeviceType { get; };
+        UInt16 VendorId { get; };
+        UInt16 ProductId { get; };
+        Windows.Gaming.Input.Custom.GameControllerVersionInfo HardwareVersion { get; };
+        Windows.Gaming.Input.Custom.GameControllerVersionInfo FirmwareVersion { get; };
+
+        String GetNextEvent();
+    };
+}

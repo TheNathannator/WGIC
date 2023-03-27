@@ -1,0 +1,40 @@
+// C++/WinRT automatically includes these
+// import "inspectable.idl";
+// import "windows.gaming.input.idl";
+// import "windows.gaming.input.custom.idl";
+
+namespace WGIC
+{
+    runtimeclass HidDevice : Windows.Gaming.Input.IGameController
+    {
+        static Windows.Foundation.Collections.IVectorView<WGIC.HidDevice> Devices { get; };
+        static event Windows.Foundation.EventHandler<WGIC.HidDevice> DeviceAdded;
+        static event Windows.Foundation.EventHandler<WGIC.HidDevice> DeviceRemoved;
+        static WGIC.HidDevice FromGameController(Windows.Gaming.Input.IGameController gameController);
+        static void RegisterHardwareIds(UInt16 vendorId, UInt16 productId);
+
+        UInt16 VendorId { get; };
+        UInt16 ProductId { get; };
+
+        Windows.Gaming.Input.Custom.GameControllerVersionInfo HardwareVersion { get; };
+        Windows.Gaming.Input.Custom.GameControllerVersionInfo FirmwareVersion { get; };
+
+        Boolean IsConnected { get; };
+
+        void GetLatestReport(
+            out UInt64 timestamp,
+            out UInt8 reportId,
+            out UInt8[] reportBuffer
+        );
+
+        void SendOutputReport(
+            UInt8 reportId,
+            UInt8[] reportBuffer
+        );
+
+        void SendFeatureReport(
+            UInt8 reportId,
+            UInt8[] reportBuffer
+        );
+    }
+}

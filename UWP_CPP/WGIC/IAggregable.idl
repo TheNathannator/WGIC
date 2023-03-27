@@ -1,0 +1,11 @@
+// C++/WinRT automatically includes this
+// import "inspectable.idl";
+
+namespace Windows.Gaming.Input.Custom
+{
+    [uuid(06E58977-7684-4DC5-BAD1-CDA52A4AA06D)]
+    interface IAggregable : IInspectable
+    {
+        void Aggregate(IInspectable inner);
+    }
+}

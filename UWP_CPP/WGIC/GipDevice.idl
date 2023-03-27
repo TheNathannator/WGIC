@@ -1,0 +1,38 @@
+// C++/WinRT automatically includes these
+// import "inspectable.idl";
+// import "windows.gaming.input.idl";
+// import "windows.gaming.input.custom.idl";
+
+namespace WGIC
+{
+    runtimeclass GipDevice : Windows.Gaming.Input.IGameController
+    {
+        static Windows.Foundation.Collections.IVectorView<WGIC.GipDevice> Devices { get; };
+        static event Windows.Foundation.EventHandler<WGIC.GipDevice> DeviceAdded;
+        static event Windows.Foundation.EventHandler<WGIC.GipDevice> DeviceRemoved;
+        static WGIC.GipDevice FromGameController(Windows.Gaming.Input.IGameController gameController);
+        static void RegisterInterfaceGuid(Guid interfaceGuid);
+
+        UInt16 VendorId { get; };
+        UInt16 ProductId { get; };
+
+        Windows.Gaming.Input.Custom.GameControllerVersionInfo HardwareVersion { get; };
+        Windows.Gaming.Input.Custom.GameControllerVersionInfo FirmwareVersion { get; };
+
+        Boolean IsConnected { get; };
+
+        void GetLatestMessage(
+            out UInt64 timestamp,
+            out Windows.Gaming.Input.Custom.GipMessageClass messageClass,
+            out UInt8 messageId,
+            out UInt8 sequenceId,
+            out UInt8[] messageBuffer
+        );
+
+        void SendMessage(
+            Windows.Gaming.Input.Custom.GipMessageClass messageClass,
+            UInt8 messageId,
+            UInt8[] messageBuffer
+        );
+    }
+}

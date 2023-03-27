@@ -1,0 +1,35 @@
+// C++/WinRT automatically includes these
+// import "inspectable.idl";
+// import "windows.gaming.input.idl";
+// import "windows.gaming.input.custom.idl";
+
+namespace WGIC
+{
+    runtimeclass XusbDevice : Windows.Gaming.Input.IGameController
+    {
+        static Windows.Foundation.Collections.IVectorView<WGIC.XusbDevice> Devices { get; };
+        static event Windows.Foundation.EventHandler<WGIC.XusbDevice> DeviceAdded;
+        static event Windows.Foundation.EventHandler<WGIC.XusbDevice> DeviceRemoved;
+        static WGIC.XusbDevice FromGameController(Windows.Gaming.Input.IGameController gameController);
+        static void RegisterType(Windows.Gaming.Input.Custom.XusbDeviceType type, Windows.Gaming.Input.Custom.XusbDeviceSubtype subtype);
+
+        UInt16 VendorId { get; };
+        UInt16 ProductId { get; };
+
+        Windows.Gaming.Input.Custom.GameControllerVersionInfo HardwareVersion { get; };
+        Windows.Gaming.Input.Custom.GameControllerVersionInfo FirmwareVersion { get; };
+
+        Boolean IsConnected { get; };
+
+        void GetLatestInput(
+            out UInt64 timestamp,
+            out UInt8 reportId,
+            out UInt8[] reportBuffer
+        );
+
+        void SetVibration(
+            Double lowFrequencyMotorSpeed,
+            Double highFrequencyMotorSpeed
+        );
+    }
+}
